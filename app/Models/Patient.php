@@ -30,4 +30,12 @@ class Patient extends Model
         'date_of_birth' => 'date',
         'status' => 'boolean',
     ];
+
+    /**
+     * A patient can have many OPD visits.
+     */
+    public function opdVisits()
+    {
+        return $this->hasMany(OPDVisit::class);
+    }
 }
