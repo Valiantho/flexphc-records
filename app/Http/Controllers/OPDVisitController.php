@@ -72,31 +72,31 @@ public function update(Request $request, Patient $patient, OPDVisit $visit)
      * Save a consultation.
      */
     public function store(Request $request, Patient $patient)
-    {
-        OPDVisit::create([
+{
+    $validated = $request->validate([
+        'complaint' => 'required|string',
+        'examination' => 'nullable|string',
+        'diagnosis' => 'required|string',
+        'treatment' => 'required|string',
+        'outcome' => 'required|in:Treated,Referred,Admitted,Follow-up',
+    ]);
 
-            'patient_id'   => $patient->id,
+    OPDVisit::create([
+        'patient_id' => $patient->id,
+        'visit_date' => now(),
+        'complaint' => $validated['complaint'],
+        'examination' => $validated['examination'] ?? null,
+        'diagnosis' => $validated['diagnosis'],
+        'treatment' => $validated['treatment'],
+        'outcome' => $validated['outcome'],
+        'created_by' => auth()->id(),
+    ]);
 
-            'visit_date'   => now(),
+    return redirect()
+        ->route('patients.find', [
+            'card_number' => $patient->card_number
+        ])
+        ->with('success', 'Consultation saved successfully.');
+}
 
-            'complaint'    => $request->complaint,
-
-            'examination'  => $request->examination,
-
-            'diagnosis'    => $request->diagnosis,
-
-            'treatment'    => $request->treatment,
-
-            'outcome'      => $request->outcome,
-
-            'created_by'   => auth()->id(),
-
-        ]);
-
-        return redirect()
-            ->route('patients.find', [
-                'card_number' => $patient->card_number
-            ])
-            ->with('success', 'Consultation saved successfully.');
-    }
 }

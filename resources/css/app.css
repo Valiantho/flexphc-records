@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@layer base {
+    *,
+    ::before,
+    ::after {
+        border-color: #e5e7eb;
+    }
+}

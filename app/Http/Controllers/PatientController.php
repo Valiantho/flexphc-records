@@ -19,28 +19,28 @@ class PatientController extends Controller
     /**
      * Store a newly created patient.
      */
-    public function store(Request $request)
-    {
-        Patient::create([
-            'card_number' => $request->card_number,
-            'surname' => $request->surname,
-            'first_name' => $request->first_name,
-            'other_name' => $request->other_name,
-            'gender' => $request->gender,
-            'date_of_birth' => $request->date_of_birth,
-            'age' => $request->age,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'occupation' => $request->occupation,
-            'next_of_kin' => $request->next_of_kin,
-            'next_of_kin_phone' => $request->next_of_kin_phone,
-            'status' => true,
-            'created_by' => auth()->id(),
-        ]);
+public function store(Request $request)
+{
+    Patient::create([
+        'card_number' => $request->card_number,
+        'surname' => $request->surname,
+        'first_name' => $request->first_name,
+        'other_name' => $request->other_name,
+        'gender' => $request->gender,
+        'date_of_birth' => $request->date_of_birth,
+        'age' => $request->age,
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'occupation' => $request->occupation,
+        'next_of_kin' => $request->next_of_kin,
+        'next_of_kin_phone' => $request->next_of_kin_phone,
+        'status' => true,
+        'created_by' => auth()->id(),
+    ]);
 
-        
-return redirect('/patients/create')
-    ->with('success', 'Patient registered successfully.');    }
+    return redirect('/patients/create')
+        ->with('success', 'Patient registered successfully.');
+}
 
     /**
  * Display the patient search page.

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OPDDashboardController;
 use App\Http\Controllers\OPDVisitController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
@@ -48,6 +49,17 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/patients/{patient}/opd/{visit}', [OPDVisitController::class, 'update'])
     ->name('opd.update');
+
+    Route::get('/opd', [OPDDashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('opd.dashboard');
+
+    Route::get('/opd/report', [OPDDashboardController::class, 'report'])
+    ->middleware('auth')
+    ->name('opd.report');
+
+    Route::get('/opd/report/print', [OPDDashboardController::class, 'print'])
+    ->name('opd.report.print');
 
 });
 
